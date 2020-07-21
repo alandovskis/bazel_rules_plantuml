@@ -4,20 +4,23 @@ load(
 )
 
 def _plantuml_graph_impl(ctx):
-    output = ctx.actions.declare_file("{name}.{format}".format(
-        name = ctx.label.name,
-        format = ctx.attr.format,
-    ))
-    plantuml_generate(
-        ctx,
-        src = ctx.file.src,
-        format = ctx.attr.format,
-        config = ctx.file.config,
-        out = output,
-    )
+    outs = []
+    for format in ["png", "svg"]:
+        output = ctx.actions.declare_file("{name}.{format}".format(
+               name = ctx.label.name,
+               format = format,
+        ))
+        outs.append(output)
+        plantuml_generate(
+            ctx,
+            src = ctx.file.src,
+            format = ctx.attr.format,
+            config = ctx.file.config,
+            out = output,
+        )
 
     return [DefaultInfo(
-        files = depset([output]),
+        files = depset(outs),
     )]
 
 plantuml_graph = rule(
