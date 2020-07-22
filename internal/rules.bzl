@@ -30,11 +30,6 @@ plantuml_graph = rule(
             doc = "Configuration file to pass to PlantUML. Useful to tweak the skin",
             allow_single_file = True,
         ),
-        "format": attr.string(
-            doc = "Output image format",
-            default = "png",
-            values = ["png", "svg"],
-        ),
         "src": attr.label(
             allow_single_file = [".puml"],
             doc = "Source file to generate the graph from",
@@ -45,9 +40,6 @@ plantuml_graph = rule(
             executable = True,
             cfg = "host",
         ),
-    },
-    outputs = {
-        "graph": "%{name}.%{format}",
     },
     doc = "Generates a PlantUML graph from a puml file",
 )
