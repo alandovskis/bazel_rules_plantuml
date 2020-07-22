@@ -5,16 +5,16 @@ load(
 
 def _plantuml_graph_impl(ctx):
     outs = []
-    for format in ["png", "svg"]:
+    for type in ["png", "svg"]:
         output = ctx.actions.declare_file("{name}.{format}".format(
                name = ctx.label.name,
-               format = format,
+               format = type,
         ))
         outs.append(output)
         plantuml_generate(
             ctx,
             src = ctx.file.src,
-            format = ctx.attr.format,
+            type = type,
             config = ctx.file.config,
             out = output,
         )

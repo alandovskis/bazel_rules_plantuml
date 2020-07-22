@@ -1,12 +1,12 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
 
-def plantuml_generate(ctx, src, format, config, out):
+def plantuml_generate(ctx, src, type, config, out):
     """Generates a single PlantUML graph from a puml file.
 
     Args:
         ctx: analysis context.
         src: source file to be read.
-        format: the output image format.
+        type: the output image format.
         config: the configuration file. Optional.
         out: output image file.
     """
@@ -15,7 +15,7 @@ def plantuml_generate(ctx, src, format, config, out):
         config = config.path if config else None,
         src = src.path,
         output = out.path,
-        output_format = format,
+        output_type = type,
     )
 
     inputs = [src]
@@ -32,7 +32,7 @@ def plantuml_generate(ctx, src, format, config, out):
         progress_message = "Generating %s" % out.basename,
     )
 
-def plantuml_command_line(executable, config, src, output, output_format):
+def plantuml_command_line(executable, config, src, output, output_type):
     """Formats the command line to call PlantUML with the given arguments.
 
     Args:
@@ -40,7 +40,7 @@ def plantuml_command_line(executable, config, src, output, output_format):
         config: path to the configuration file. Optional.
         src: path to the source file.
         output: path to the output file.
-        output_format: image format of the output file.
+        output_type: image format of the output file.
 
     Returns:
         A command to invoke PlantUML
@@ -48,7 +48,7 @@ def plantuml_command_line(executable, config, src, output, output_format):
 
     command = "%s -nometadata -p -t%s " % (
         shell.quote(executable),
-        output_format,
+        output_type,
     )
 
     if config:
