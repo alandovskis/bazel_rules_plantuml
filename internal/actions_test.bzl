@@ -13,7 +13,7 @@ def _no_config_impl(ctx):
             config = None,
             src = "mysource.puml",
             output = "dir/myoutput.png",
-            output_format = "png",
+            output_type = "png",
         ),
     )
     return unittest.end(env)
@@ -30,7 +30,7 @@ def _with_config_impl(ctx):
             config = "myskin.skin",
             src = "mysource.puml",
             output = "dir/myoutput.png",
-            output_format = "png",
+            output_type = "png",
         ),
     )
     return unittest.end(env)
