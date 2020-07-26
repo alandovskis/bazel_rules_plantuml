@@ -2,7 +2,6 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: rules_plantuml
-  description: Bazel Rules for PlantUML
 spec:
   type: library
   lifecycle: production
